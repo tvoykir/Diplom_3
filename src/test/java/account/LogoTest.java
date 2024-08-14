@@ -34,7 +34,7 @@ public class LogoTest {
 
     @Test
     @DisplayName("Переход по клику на «Конструктор»")
-    public void testConstructorLogo() throws InterruptedException {
+    public void testConstructorLogo(){
         MainPage mainPage = new MainPage(driver);
         mainPage.clickMainPageLogin();
         Login loginPage = new Login(driver);
@@ -47,7 +47,7 @@ public class LogoTest {
 
     @Test
     @DisplayName("Переход по клику на логотип Stellar Burgers")
-    public void testStellarBurgersLogo() throws InterruptedException {
+    public void testStellarBurgersLogo(){
         MainPage mainPage = new MainPage(driver);
         mainPage.clickMainPageLogin();
         Login loginPage = new Login(driver);

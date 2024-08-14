@@ -1,10 +1,14 @@
 package pom;
 
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import user.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import java.time.Duration;
 
 public class Login {
     private final WebDriver driver;
@@ -43,24 +47,29 @@ public class Login {
         driver.findElement(recoverPasswordExitXPath).click();
     }
 
-    public void clickRegistrationPath() throws InterruptedException {
+    public void clickRegistrationPath() {
         WebElement element = driver.findElement(registerXPath);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
-        Thread.sleep(1000);
-        driver.findElement(registerXPath).click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+
+        element.click();
     }
 
-    public boolean positiveLogin(User userCredentials) throws InterruptedException {
+    public boolean positiveLogin(User userCredentials) {
         setEmail(userCredentials.getEmail());
         setPassword(userCredentials.getPassword());
         clickEnterButton();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(confirmOrderXPath));
 
-        Thread.sleep(1000);
         return driver.findElement(confirmOrderXPath).isEnabled();
     }
 
-    public boolean loginPage() throws InterruptedException {
-        Thread.sleep(1000);
+    public boolean loginPage() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(exitXPath));
+
         return driver.findElement(exitXPath).isEnabled();
     }
 }

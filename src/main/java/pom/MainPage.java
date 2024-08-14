@@ -1,13 +1,17 @@
 package pom;
 
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class MainPage {
     private final WebDriver driver;
+    private final WebDriverWait wait;
 
     private final By mainPageLoginXPath = By.xpath(".//*[text()='Войти в аккаунт']");
     private final By personAccountXPath = By.xpath(".//*[text()='Личный Кабинет']");
@@ -15,13 +19,12 @@ public class MainPage {
     private final By mainPageBunXPath = By.xpath(".//*[@class='text text_type_main-default' and text()='Булки']");
     private final By mainPageSaucePath = By.xpath(".//*[@class='text text_type_main-default' and text()='Соусы']");
     private final By mainPageFillingXPath = By.xpath(".//*[@class='text text_type_main-default' and text()='Начинки']");
-    private final By mainPageIngredientXPath = By.xpath(".//*[@class='tab_tab__1SPyG " +
-            "tab_tab_type_current__2BEPc pt-4 pr-10 pb-4 pl-10 noselect']/span[@class='text text_type_main-default']");
+    private final By mainPageIngredientXPath = By.xpath(".//div[contains(@class, 'tab_tab_type_current__2BEPc')]/span[@class='text text_type_main-default']");
 
 
     public MainPage(WebDriver driver) {
-
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public MainPage clickMainPageLogin() {
@@ -30,9 +33,9 @@ public class MainPage {
         return this;
     }
 
-    public boolean checkPlaceOrder() throws InterruptedException {
-        Thread.sleep(700);
-        return driver.findElement(confirmOrderXPath).isEnabled();
+    public boolean checkPlaceOrder() {
+        WebElement confirmOrderButton = wait.until(ExpectedConditions.presenceOfElementLocated(confirmOrderXPath));
+        return confirmOrderButton.isEnabled();
     }
 
     public void clickPersonAccount() {
@@ -40,22 +43,30 @@ public class MainPage {
         driver.findElement(personAccountXPath).click();
     }
 
-    public String changeIngredient(String ingredient) throws InterruptedException {
-        Thread.sleep(3000);
+    public String selectAndReturnIngredient(String ingredient) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
         switch (ingredient) {
             case "Булки":
-                if (!(driver.findElement(mainPageBunXPath).isEnabled())) {
-                    driver.findElement(mainPageBunXPath).click();
+                WebElement bunElement = wait.until(ExpectedConditions.elementToBeClickable(mainPageBunXPath));
+                if (!bunElement.isEnabled()) {
+                    bunElement.click();
                 }
                 break;
             case "Соусы":
-                driver.findElement(mainPageSaucePath).click();
+                WebElement sauceElement = wait.until(ExpectedConditions.elementToBeClickable(mainPageSaucePath));
+                sauceElement.click();
                 break;
             case "Начинки":
-                driver.findElement(mainPageFillingXPath).click();
+                WebElement fillingElement = wait.until(ExpectedConditions.elementToBeClickable(mainPageFillingXPath));
+                fillingElement.click();
                 break;
+            default:
+                throw new IllegalArgumentException("Invalid ingredient: " + ingredient);
         }
-        return driver.findElement(mainPageIngredientXPath).getText();
+
+        WebElement selectedIngredientElement = wait.until(ExpectedConditions.visibilityOfElementLocated(mainPageIngredientXPath));
+        return selectedIngredientElement.getText();
     }
 
 }

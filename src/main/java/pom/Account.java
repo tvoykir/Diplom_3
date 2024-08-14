@@ -2,6 +2,10 @@ package pom;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class Account {
     private final WebDriver driver;
@@ -26,8 +30,10 @@ public class Account {
 
         driver.findElement(exitButtonXPath).click();
     }
-    public boolean successfulExitPersonalAccount() throws InterruptedException {
-        Thread.sleep(700);
+    public boolean successfulExitPersonalAccount() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(exitButtonXPath));
+
         return driver.findElement(exitButtonXPath).isEnabled();
     }
 }

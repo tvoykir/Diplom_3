@@ -27,7 +27,7 @@ public class UserInvalidRegistrationTest {
 
     @Test
     @DisplayName("Регистрация с некорректным паролем")
-    public void testUserInvalidRegistration() throws InterruptedException {
+    public void testUserInvalidRegistration(){
         MainPage mainPage = new MainPage(driver);
         mainPage.clickMainPageLogin();
         Login loginPage = new Login(driver);

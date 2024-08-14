@@ -33,7 +33,7 @@ public class EntryButtonToLogInTest {
 
     @Test
     @DisplayName("Вход по кнопке «Войти в аккаунт» на главной странице")
-    public void testEntryLogInButton() throws InterruptedException {
+    public void testEntryLogInButton(){
         MainPage mainPage = new MainPage(driver);
         mainPage.clickMainPageLogin();
         Login loginPage = new Login(driver);
@@ -43,7 +43,7 @@ public class EntryButtonToLogInTest {
 
     @Test
     @DisplayName("Вход через кнопку «Личный кабинет»")
-    public void testEntryThrowPersonalAccount() throws InterruptedException {
+    public void testEntryThrowPersonalAccount(){
         MainPage mainPage = new MainPage(driver);
         mainPage.clickPersonAccount();
         Login loginPage = new Login(driver);
@@ -52,7 +52,7 @@ public class EntryButtonToLogInTest {
 
     @Test
     @DisplayName("Вход через кнопку в форме регистрации")
-    public void testEntryThrowLogInRegistration() throws InterruptedException {
+    public void testEntryThrowLogInRegistration(){
         MainPage mainPage = new MainPage(driver);
         mainPage.clickMainPageLogin();
         Login loginPage = new Login(driver);
@@ -64,7 +64,7 @@ public class EntryButtonToLogInTest {
 
     @Test
     @DisplayName("Вход через кнопку в форме восстановления пароля")
-    public void testEntryThrowRecoveryForm() throws InterruptedException {
+    public void testEntryThrowRecoveryForm(){
         MainPage mainPage = new MainPage(driver);
         mainPage.clickMainPageLogin();
         Login loginPage = new Login(driver);

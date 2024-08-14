@@ -35,13 +35,14 @@ public class IngredientTabParamTest {
 
     @Test
     @DisplayName("Переходы к разделам: Булки, Соусы, Начинки")
-    public void testSelectionIngredient() throws InterruptedException {
+    public void testSelectionIngredient(){
         MainPage mainPage = new MainPage(driver);
-        assertEquals(ingredient, mainPage.changeIngredient(ingredient));
+        assertEquals(ingredient, mainPage.selectAndReturnIngredient(ingredient));
     }
 
     @After
     public void teardown() {
+
         driver.quit();
     }
 }

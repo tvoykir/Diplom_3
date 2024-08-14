@@ -35,7 +35,7 @@ public class AccountTest {
 
     @Test
     @DisplayName("Переход по клику на «Личный кабинет»")
-    public void testPersonalAccount() throws InterruptedException {
+    public void testPersonalAccount(){
         MainPage mainPage = new MainPage(driver);
         mainPage.clickMainPageLogin();
         Login loginPage = new Login(driver);
@@ -47,7 +47,7 @@ public class AccountTest {
 
     @Test
     @DisplayName("Выход по кнопке «Выйти» в личном кабинете")
-    public void testExitFromPersonalAccount() throws InterruptedException {
+    public void testExitFromPersonalAccount(){
         MainPage mainPage = new MainPage(driver);
         mainPage.clickMainPageLogin();
         Login loginPage = new Login(driver);

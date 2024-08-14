@@ -1,12 +1,15 @@
 package pom;
 
 
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import user.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class Registration {
@@ -49,29 +52,37 @@ public class Registration {
         driver.findElement(enterButtonXPath).click();
     }
 
-    public boolean successfulRegistrationClient(User user) throws InterruptedException {
+    public boolean successfulRegistrationClient(User user) {
         setUserName(user.getName());
         setUserEmail(user.getEmail());
         setUserPassword(user.getPassword());
 
         WebElement element = driver.findElement(registerXpath);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
-        Thread.sleep(700);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(registerXpath));
+
         clickRegisterButton();
 
+        wait.until(ExpectedConditions.visibilityOfElementLocated(enterTextXPath));
         return driver.findElement(enterTextXPath).isEnabled();
     }
 
-    public boolean invalidRegistrationClient(User user) throws InterruptedException {
+    public boolean invalidRegistrationClient(User user) {
         setUserName(user.getName());
         setUserEmail(user.getEmail());
         setUserPassword(user.getPassword());
 
         WebElement element = driver.findElement(registerXpath);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
-        Thread.sleep(700);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(registerXpath));
+
         clickRegisterButton();
 
+        wait.until(ExpectedConditions.visibilityOfElementLocated(invalidPasswordTextXPath));
         return driver.findElement(invalidPasswordTextXPath).isEnabled();
     }
 }

@@ -32,7 +32,7 @@ public class UserRegistrationTest {
 
     @Test
     @DisplayName("Успешная регистрация")
-    public void testUserRegistration() throws InterruptedException {
+    public void testUserRegistration(){
         MainPage mainPage = new MainPage(driver);
         mainPage.clickMainPageLogin();
         Login loginPage = new Login(driver);
